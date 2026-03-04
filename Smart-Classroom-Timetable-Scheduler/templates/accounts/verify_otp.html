@@ -1,0 +1,41 @@
+{% extends 'base1.html' %}
+{% block title %}Verify Identity | Smart Scheduler{% endblock %}
+
+{% block content %}
+<div class="flex items-center justify-center py-24 px-4 relative overflow-hidden">
+    <div class="absolute top-1/3 left-1/4 w-72 h-72 bg-primary/5 rounded-full blur-[120px] pointer-events-none"></div>
+
+    <div class="max-w-md w-full bg-white/80 backdrop-blur-2xl p-10 rounded-[2.5rem] border border-borderSubtle shadow-2xl text-center fade-in-up">
+        
+        <div class="w-20 h-20 bg-primary/10 border border-primary/20 rounded-2xl flex items-center justify-center mx-auto mb-8 transition-transform hover:scale-110">
+            <i class="fa-solid fa-key text-3xl text-primary animate-pulse"></i>
+        </div>
+
+        <h2 class="font-display text-2xl font-bold text-primary mb-2 tracking-tight">
+            Verify <span class="text-secondary">Identity</span>
+        </h2>
+        <p class="text-[10px] font-bold text-textGray uppercase tracking-[0.2em] mb-10">
+            Check your academic email for the 6-digit access code
+        </p>
+
+        <form method="POST" class="space-y-8">
+            {% csrf_token %}
+            <div class="relative group">
+                <input name="otp" maxlength="6" required placeholder="000000"
+                       class="w-full text-center text-5xl tracking-[0.4em] py-6 bg-bgSoft border border-borderSubtle rounded-2xl focus:border-primary/50 focus:ring-4 focus:ring-primary/10 outline-none font-bold text-primary placeholder-borderSubtle transition-all">
+            </div>
+
+            <button type="submit" class="btn-glow w-full bg-primary text-white font-bold py-4 rounded-xl uppercase tracking-[0.2em] text-xs active:scale-95 transition-all shadow-lg shadow-primary/20">
+                <i class="fa-solid fa-unlock-keyhole mr-2"></i> Activate Access Node
+            </button>
+        </form>
+
+        <div class="mt-8">
+            <p class="text-[9px] font-bold text-textGray uppercase tracking-widest">
+                Didn't receive the transmission? 
+                <a href="#" class="text-secondary hover:text-primary hover:underline ml-1">Resend Code</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'base1.html' %}
+{% block title %}Node Activated | Smart Scheduler{% endblock %}
+
+{% block content %}
+<div class="flex items-center justify-center py-24 px-4">
+    <div class="max-w-md w-full bg-white/80 backdrop-blur-2xl p-12 rounded-[3rem] border border-secondary/20 shadow-2xl text-center">
+        
+        <div class="w-24 h-24 bg-secondary/10 border border-secondary/20 rounded-full flex items-center justify-center mx-auto mb-8 transition-all hover:rotate-[360deg] duration-700">
+            <i class="fa-solid fa-circle-check text-5xl text-secondary"></i>
+        </div>
+
+        <h2 class="font-display text-2xl font-bold text-primary mb-4 tracking-tight">
+            Identity <span class="text-secondary">Verified</span>
+        </h2>
+        
+        <div class="bg-bgSoft p-6 rounded-2xl border border-borderSubtle mb-10">
+            <p class="text-[10px] font-black text-textGray uppercase tracking-[0.2em] mb-2">System Status</p>
+            <p class="text-sm font-bold text-primary">Your Access Node has been successfully activated within the institutional network.</p>
+        </div>
+
+        <a href="{% url 'login' %}" 
+           class="btn-glow w-full bg-primary text-white font-bold py-4 rounded-2xl uppercase tracking-[0.2em] text-xs flex items-center justify-center gap-3 shadow-lg shadow-primary/20">
+            Proceed to Login <i class="fa-solid fa-right-to-bracket"></i>
+        </a>
+    </div>
+</div>
+{% endblock %}

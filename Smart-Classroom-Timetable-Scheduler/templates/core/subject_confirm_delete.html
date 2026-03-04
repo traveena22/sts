@@ -1,0 +1,35 @@
+{% extends 'base_dashboard.html' %}
+{% block title %}Delete Subject | Smart Scheduler{% endblock %}
+
+{% block content %}
+<div class="max-w-xl mx-auto mt-12 fade-in-up">
+    <div class="bg-white rounded-[40px] border border-borderSubtle shadow-2xl overflow-hidden">
+        <div class="bg-red-500 p-8 text-white flex items-center gap-4">
+            <div class="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center border border-white/20">
+                <i class="fa-solid fa-triangle-exclamation text-xl"></i>
+            </div>
+            <div>
+                <h2 class="text-xl font-bold">Confirm Deletion</h2>
+                <p class="text-white/60 text-xs font-medium uppercase tracking-widest">Permanent Action</p>
+            </div>
+        </div>
+
+        <div class="p-8">
+            <p class="text-textDark font-medium text-center mb-8">
+                Are you sure you want to delete the subject <span class="font-black text-primary">"{{ object.name }} ({{ object.code }})"</span>? 
+                This action cannot be undone and may affect existing timetable records.
+            </p>
+
+            <form method="POST" class="flex items-center justify-center gap-4">
+                {% csrf_token %}
+                <a href="{% url 'subject_list' %}" class="px-8 py-4 rounded-2xl font-bold text-sm text-textGray bg-bgSoft border border-borderSubtle hover:bg-white transition-all">
+                    No, Cancel
+                </a>
+                <button type="submit" class="bg-red-500 text-white px-8 py-4 rounded-2xl font-bold text-sm shadow-lg shadow-red-500/20 hover:scale-105 transition-all">
+                    Yes, Delete Permanently
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

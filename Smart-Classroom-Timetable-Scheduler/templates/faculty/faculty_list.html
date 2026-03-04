@@ -1,0 +1,77 @@
+{% extends 'base_dashboard.html' %}
+{% block title %}Faculty | Smart Scheduler{% endblock %}
+{% block header_title %}Faculty Management{% endblock %}
+
+{% block content %}
+<div class="space-y-6 fade-in-up">
+    <div class="flex justify-between items-center">
+        <h2 class="font-display text-xl font-bold text-primary">Teaching Staff</h2>
+        <a href="{% url 'faculty_add' %}" class="btn-glow bg-primary text-white px-6 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2">
+            <i class="fa-solid fa-user-plus"></i> Add Faculty Member
+        </a>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {% for faculty in faculties %}
+        <div class="bg-white p-6 rounded-[32px] border border-borderSubtle shadow-sm hover:shadow-md transition-all group relative">
+            
+            <div class="absolute top-6 right-6 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <a href="{% url 'faculty_edit' faculty.pk %}" 
+                   class="w-9 h-9 bg-bgSoft border border-borderSubtle rounded-xl flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all shadow-sm"
+                   title="Edit Faculty">
+                    <i class="fa-solid fa-pen-to-square text-xs"></i>
+                </a>
+                <a href="{% url 'faculty_delete' faculty.pk %}" 
+                   onclick="return confirm('Are you sure you want to remove this faculty member? This may affect existing timetable entries.');"
+                   class="w-9 h-9 bg-bgSoft border border-borderSubtle rounded-xl flex items-center justify-center text-red-500 hover:bg-red-500 hover:text-white transition-all shadow-sm"
+                   title="Delete Faculty">
+                    <i class="fa-solid fa-trash text-xs"></i>
+                </a>
+            </div>
+
+            <div class="flex items-center gap-6">
+                <div class="w-16 h-16 bg-highlight/10 rounded-2xl flex items-center justify-center text-primary text-2xl font-bold border border-highlight/20">
+                    {{ faculty.user.email|slice:":1"|upper }}
+                </div>
+                
+                <div class="flex-grow">
+                    <h3 class="font-display font-bold text-lg text-textDark">
+                        {{ faculty.user.get_full_name|default:faculty.user.email }}
+                    </h3>
+                    <div class="flex items-center gap-2">
+                        <p class="text-xs font-black text-secondary uppercase tracking-widest">{{ faculty.designation }}</p>
+                        <span class="w-1 h-1 bg-borderSubtle rounded-full"></span>
+                        <p class="text-[10px] font-bold text-textGray uppercase">{{ faculty.employee_id }}</p>
+                    </div>
+                </div>
+                
+                <div class="mr-12 group-hover:mr-20 transition-all">
+                    <span class="bg-primary/5 text-primary px-3 py-1 rounded-lg text-[10px] font-black uppercase border border-primary/10">
+                        {{ faculty.department.code }}
+                    </span>
+                </div>
+            </div>
+
+            <div class="mt-6 pt-6 border-t border-borderSubtle grid grid-cols-2 gap-4">
+                <div class="bg-bgSoft p-3 rounded-2xl border border-borderSubtle/50">
+                    <p class="text-[9px] font-bold text-textGray uppercase tracking-tighter mb-1">Daily Limit</p>
+                    <p class="text-sm font-black text-textDark">{{ faculty.max_classes_per_day }} Classes</p>
+                </div>
+                <div class="bg-bgSoft p-3 rounded-2xl border border-borderSubtle/50">
+                    <p class="text-[9px] font-bold text-textGray uppercase tracking-tighter mb-1">Weekly Limit</p>
+                    <p class="text-sm font-black text-textDark">{{ faculty.max_classes_per_week }} Classes</p>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-span-full py-20 text-center bg-white rounded-[40px] border border-dashed border-borderSubtle">
+            <div class="w-20 h-20 bg-bgSoft rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fa-solid fa-user-slash text-textGray text-2xl"></i>
+            </div>
+            <h3 class="text-lg font-display font-bold text-textDark">No Faculty Found</h3>
+            <p class="text-textGray text-sm max-w-xs mx-auto mt-2">Start by adding your teaching staff to the system to begin scheduling.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

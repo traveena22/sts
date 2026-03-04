@@ -1,0 +1,53 @@
+{% extends 'base_dashboard.html' %}
+
+{% block title %}Delete Classroom | SmartSched{% endblock %}
+{% block header_title %}Infrastructure Safety{% endblock %}
+
+{% block content %}
+<div class="max-w-xl mx-auto fade-in-up">
+    <div class="bg-white rounded-[40px] border border-borderSubtle shadow-2xl overflow-hidden">
+        
+        <div class="p-10 text-center bg-red-50/50 border-b border-borderSubtle">
+            <div class="w-20 h-20 bg-red-100 text-red-600 rounded-3xl flex items-center justify-center mx-auto mb-6">
+                <i class="fa-solid fa-triangle-exclamation text-3xl"></i>
+            </div>
+            <h3 class="font-display text-2xl font-black text-primary uppercase tracking-tight">Confirm Deletion</h3>
+            <p class="text-textGray text-sm mt-2 font-medium">
+                Are you sure you want to remove <span class="text-red-600 font-bold">"{{ object.name }}"</span>?
+            </p>
+        </div>
+
+        <div class="p-8 space-y-6">
+            <div class="bg-bgSoft p-6 rounded-3xl border border-dashed border-borderSubtle">
+                <h4 class="text-[10px] font-black text-textGray uppercase tracking-widest mb-3">Consequences:</h4>
+                <ul class="space-y-2">
+                    <li class="flex items-center gap-3 text-xs font-bold text-textDark">
+                        <i class="fa-solid fa-circle-xmark text-red-400"></i>
+                        Any scheduled classes in this room will be unassigned.
+                    </li>
+                    <li class="flex items-center gap-3 text-xs font-bold text-textDark">
+                        <i class="fa-solid fa-circle-xmark text-red-400"></i>
+                        Historical utilization data for this room will be lost.
+                    </li>
+                </ul>
+            </div>
+
+            <form method="POST" class="flex gap-4">
+                {% csrf_token %}
+                <a href="{% url 'classroom_list' %}" class="flex-1 text-center py-4 rounded-2xl border border-borderSubtle text-textGray font-bold text-sm hover:bg-bgSoft transition-all">
+                    No, Keep Room
+                </a>
+                <button type="submit" class="flex-1 bg-red-600 text-white py-4 rounded-2xl font-bold text-sm shadow-lg shadow-red-200 hover:bg-red-700 transition-all hover:scale-[1.02]">
+                    <i class="fa-solid fa-trash-can mr-2"></i> Delete Forever
+                </button>
+            </form>
+        </div>
+
+        <div class="p-6 bg-bgSoft/30 text-center border-t border-borderSubtle">
+            <p class="text-[9px] font-black text-textGray/60 uppercase tracking-tighter">
+                Action will be logged in the system audit trail.
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}
